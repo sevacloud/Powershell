@@ -71,7 +71,7 @@ Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Def
     # Clear Internet Explorer
     Write-Host -ForegroundColor Green "SECTION 5: Clearing Internet Explorer Caches"
      "-------------------"
-    Write-Host -ForegroundColor yellow "Clearing Google caches"
+    Write-Host -ForegroundColor yellow "Clearing Internet Explorer caches"
     Write-Host -ForegroundColor cyan
     Import-CSV -Path C:\users\$env:USERNAME\users.csv | foreach {
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -EA SilentlyContinue -Verbose
