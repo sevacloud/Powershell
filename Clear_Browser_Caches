@@ -57,7 +57,7 @@ if ($list) {
     Write-Host -ForegroundColor cyan
     Import-CSV -Path C:\users\$env:USERNAME\users.csv -Header Name | foreach {
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -EA SilentlyContinue -Verbose
-Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -EA SilentlyContinue -Verbose
+	    Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -EA SilentlyContinue -Verbose
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies" -Recurse -Force -EA SilentlyContinue -Verbose
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Media Cache" -Recurse -Force -EA SilentlyContinue -Verbose
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal" -Recurse -Force -EA SilentlyContinue -Verbose
@@ -71,7 +71,7 @@ Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Def
     # Clear Internet Explorer
     Write-Host -ForegroundColor Green "SECTION 5: Clearing Internet Explorer Caches"
      "-------------------"
-    Write-Host -ForegroundColor yellow "Clearing Google caches"
+    Write-Host -ForegroundColor yellow "Clearing Internet Explorer caches"
     Write-Host -ForegroundColor cyan
     Import-CSV -Path C:\users\$env:USERNAME\users.csv | foreach {
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -EA SilentlyContinue -Verbose
@@ -83,6 +83,23 @@ Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Def
 
     Write-Host -ForegroundColor yellow "Done..."
     ""
+    # Clear Opera & Chromium 
+    Write-Host -ForegroundColor Green "SECTION 6: Clearing Opera & Chromium Caches"
+    "-------------------"
+    Write-Host -ForegroundColor yellow "Clearing Opera & Chromium caches"
+    Write-Host -ForegroundColor cyan
+    Import-CSV -Path C:\users\$env:USERNAME\users.csv -Header Name | foreach {
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cache\*" -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\GPUCache\*" -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Media Cache" -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Pepper Data" -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Application Cache" -Recurse -Force -EA SilentlyContinue -Verbose
+	    Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Opera Software\Opera Stable\Cache\*" -Recurse -Force -EA SilentlyContinue -Verbose
+            }
+
+    Write-Host -ForegroundColor yellow "Done..."
+    ""
+    "-------------------"
     Write-Host -ForegroundColor Green "All Tasks Done!"
     } else {
 	Write-Host -ForegroundColor Yellow "Session Cancelled"	
