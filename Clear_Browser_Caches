@@ -21,10 +21,10 @@ Write-Host -ForegroundColor yellow "############################################
 Write-Host -ForegroundColor Green "SECTION 1: Getting the list of users"
 "-------------------"
 # Write Information to the screen
-Write-Host -ForegroundColor yellow "Exporting the list of users to c:\users\%username%\users.csv"
+Write-Host -ForegroundColor yellow "Exporting the list of users to $env:UserProfile\users.csv"
 # List the users in c:\users and export to the local profile for calling later
-dir C:\Users | select Name | Export-Csv -Path C:\users\$env:USERNAME\users.csv -NoTypeInformation
-$list=Test-Path C:\users\$env:USERNAME\users.csv
+dir C:\Users | select Name | Export-Csv -Path $env:UserProfile\users.csv -NoTypeInformation
+$list=Test-Path $env:UserProfile\users.csv
 ""
 #########################
 "-------------------"
@@ -37,7 +37,7 @@ if ($list) {
     "-------------------"
     Write-Host -ForegroundColor yellow "Clearing Mozilla caches"
     Write-Host -ForegroundColor cyan
-    Import-CSV -Path C:\users\$env:USERNAME\users.csv -Header Name | foreach {
+    Import-CSV -Path $env:UserProfile\users.csv -Header Name | foreach {
             Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\* -Recurse -Force -EA SilentlyContinue -Verbose
             Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\*.* -Recurse -Force -EA SilentlyContinue -Verbose
 	    Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*.* -Recurse -Force -EA SilentlyContinue -Verbose
@@ -55,7 +55,7 @@ if ($list) {
     "-------------------"
     Write-Host -ForegroundColor yellow "Clearing Google caches"
     Write-Host -ForegroundColor cyan
-    Import-CSV -Path C:\users\$env:USERNAME\users.csv -Header Name | foreach {
+    Import-CSV -Path $env:UserProfile\users.csv -Header Name | foreach {
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -EA SilentlyContinue -Verbose
 Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -EA SilentlyContinue -Verbose
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies" -Recurse -Force -EA SilentlyContinue -Verbose
@@ -73,7 +73,7 @@ Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Def
      "-------------------"
     Write-Host -ForegroundColor yellow "Clearing Google caches"
     Write-Host -ForegroundColor cyan
-    Import-CSV -Path C:\users\$env:USERNAME\users.csv | foreach {
+    Import-CSV -Path $env:UserProfile\users.csv | foreach {
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -EA SilentlyContinue -Verbose
 	    Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WER\*" -Recurse -Force -EA SilentlyContinue -Verbose
 	    Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -EA SilentlyContinue -Verbose
