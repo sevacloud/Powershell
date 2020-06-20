@@ -63,6 +63,8 @@ Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Def
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal" -Recurse -Force -EA SilentlyContinue -Verbose
             # Comment out the following line to remove the Chrome Write Font Cache too.
             # Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache" -Recurse -Force -EA SilentlyContinue -Verbose
+	    # Comment out the following line to remove the Chrome Code Cache (js) as well.
+	    # Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Code Cache\js\*" -Recurse -Force -EA SilentlyContinue -Verbose
             }
 
     Write-Host -ForegroundColor yellow "Done..."
