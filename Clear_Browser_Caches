@@ -38,13 +38,13 @@ if ($list) {
     Write-Host -ForegroundColor yellow "Clearing Mozilla caches"
     Write-Host -ForegroundColor cyan
     Import-CSV -Path C:\users\$env:USERNAME\users.csv -Header Name | foreach {
-            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\* -Recurse -Force -EA SilentlyContinue -Verbose
-            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\*.* -Recurse -Force -EA SilentlyContinue -Verbose
-	    Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*.* -Recurse -Force -EA SilentlyContinue -Verbose
-            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\thumbnails\* -Recurse -Force -EA SilentlyContinue -Verbose
-            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cookies.sqlite -Recurse -Force -EA SilentlyContinue -Verbose
-            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\webappsstore.sqlite -Recurse -Force -EA SilentlyContinue -Verbose
-            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\chromeappsstore.sqlite -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default*\cache\* -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default*\cache\*.* -Recurse -Force -EA SilentlyContinue -Verbose
+	    Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default*\cache2\entries\* -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default*\thumbnails\* -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default*\cookies.sqlite -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default*\webappsstore.sqlite -Recurse -Force -EA SilentlyContinue -Verbose
+            Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default*\chromeappsstore.sqlite -Recurse -Force -EA SilentlyContinue -Verbose
             }
     Write-Host -ForegroundColor yellow "Clearing Mozilla caches"
     Write-Host -ForegroundColor yellow "Done..."
@@ -63,6 +63,8 @@ Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Def
             Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal" -Recurse -Force -EA SilentlyContinue -Verbose
             # Comment out the following line to remove the Chrome Write Font Cache too.
             # Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache" -Recurse -Force -EA SilentlyContinue -Verbose
+	    # Comment out the following line to remove the Chrome Code Cache (js) as well.
+	    # Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Code Cache\js\*" -Recurse -Force -EA SilentlyContinue -Verbose
             }
 
     Write-Host -ForegroundColor yellow "Done..."
