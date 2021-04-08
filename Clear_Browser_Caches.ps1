@@ -83,6 +83,29 @@ Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Def
 
     Write-Host -ForegroundColor yellow "Done..."
     ""
+     "-------------------"
+    # Clear Desktop and Downloads folder
+    Write-Host -ForegroundColor Green "SECTION 6:  Clearing Desktop and Downloads folder"
+     "-------------------"
+    Write-Host -ForegroundColor yellow "Clearing Desktop and Downloads folder"
+    Write-Host -ForegroundColor cyan
+    Import-CSV -Path C:\users\$env:USERNAME\users.csv | foreach {
+            Remove-Item -path "C:\Users\$($_.Name)\Downloads\*" -Exclude *.ini -Recurse -Force -EA SilentlyContinue -Verbose
+	        Remove-Item -path "C:\Users\$($_.Name)\Desktop\*" -Exclude *.url,*.lnk,*.rdp,*.ini -Recurse -Force -EA SilentlyContinue -Verbose
+            }
+    Write-Host -ForegroundColor yellow "Done..."
+    ""
+     "-------------------"
+    # Clear RDP Cache
+    Write-Host -ForegroundColor Green "SECTION 7:  Clearing Terminal Server Client Cache"
+     "-------------------"
+    Write-Host -ForegroundColor yellow "Clearing RDP Cache"
+    Write-Host -ForegroundColor cyan
+    Import-CSV -Path C:\users\$env:USERNAME\users.csv | foreach {
+            Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Terminal Server Client\Cache\*" -Recurse -Force -EA SilentlyContinue -Verbose
+	        }
+    Write-Host -ForegroundColor yellow "Done..."
+    ""
     Write-Host -ForegroundColor Green "All Tasks Done!"
     } else {
 	Write-Host -ForegroundColor Yellow "Session Cancelled"	
