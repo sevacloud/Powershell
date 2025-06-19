@@ -1,2 +1,2 @@
 # Powershell
-Powershell scripts by Lemtek
+Powershell scripts by Seva Cloud
