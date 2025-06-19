@@ -1,39 +1,39 @@
-<#
-.SYNOPSIS
-Clears browser cache and cookie files for multiple users on a Windows system, supporting modern browsers.
-
-.DESCRIPTION
-This function scans each local user profile under C:\Users and attempts to clean browser cache and cookie data 
-for the following supported browsers: Google Chrome, Mozilla Firefox, Microsoft Edge, and Internet Explorer.
-
-It dynamically discovers user profiles, handles modern Firefox profile folders, and skips any paths that do not exist.
-Supports running on Windows 10/11 and is designed to be safe, silent, and reusable.
-
-.PARAMETER Browsers
-An array of browser names to target. Supported values are: "Chrome", "Firefox", "Edge", and "IE".
-Defaults to all supported browsers.
-
-.EXAMPLE
-Clear-BrowserCache
-
-Clears caches and cookies for Chrome, Firefox, Edge, and Internet Explorer for all local user profiles.
-
-.EXAMPLE
-Clear-BrowserCache -Browsers @("Chrome", "Firefox")
-
-Clears cache and cookies only for Chrome and Firefox.
-
-.NOTES
-- Requires administrative privileges to access other users' profiles.
-- Designed for Windows 10/11 environments.
-- Does not remove bookmarks or saved passwords.
-- Safe to use as part of login scripts, cleanup routines, or troubleshooting toolkits.
-
-.AUTHOR
-Originally coded by Liamarjit @ Seva Cloud (2014), modernized in 2025
-
-#>
 function Clear-BrowserCache {
+    <#
+        .SYNOPSIS
+        Clears browser cache and cookie files for multiple users on a Windows system, supporting modern browsers.
+        
+        .DESCRIPTION
+        This function scans each local user profile under C:\Users and attempts to clean browser cache and cookie data 
+        for the following supported browsers: Google Chrome, Mozilla Firefox, Microsoft Edge, and Internet Explorer.
+        
+        It dynamically discovers user profiles, handles modern Firefox profile folders, and skips any paths that do not exist.
+        Supports running on Windows 10/11 and is designed to be safe, silent, and reusable.
+        
+        .PARAMETER Browsers
+        An array of browser names to target. Supported values are: "Chrome", "Firefox", "Edge", and "IE".
+        Defaults to all supported browsers.
+        
+        .EXAMPLE
+        Clear-BrowserCache
+        
+        Clears caches and cookies for Chrome, Firefox, Edge, and Internet Explorer for all local user profiles.
+        
+        .EXAMPLE
+        Clear-BrowserCache -Browsers @("Chrome", "Firefox")
+        
+        Clears cache and cookies only for Chrome and Firefox.
+        
+        .NOTES
+        - Requires administrative privileges to access other users' profiles.
+        - Designed for Windows 10/11 environments.
+        - Does not remove bookmarks or saved passwords.
+        - Safe to use as part of login scripts, cleanup routines, or troubleshooting toolkits.
+        
+        .AUTHOR
+        Originally coded by Liamarjit @ Seva Cloud (2014), modernized in 2025
+        
+    #>
     [CmdletBinding()]
     param (
         [string[]]$Browsers = @("Chrome", "Firefox", "Edge", "IE")
