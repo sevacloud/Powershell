@@ -1,47 +1,50 @@
-<#
-.SYNOPSIS
-Retrieves AWS credentials from either EC2 instance metadata (with IMDSv2 support) or a local credentials file, with optional STS role assumption.
-
-.DESCRIPTION
-This function determines whether it's running on an EC2 instance or on-premises. It retrieves AWS credentials accordingly:
-
-- On EC2: Fetches temporary IAM credentials from the instance metadata service (IMDSv2 supported).
-- On-prem: Loads static credentials from a default shared credentials file.
-- If a RoleArn is specified, it uses STS to assume that IAM role using the base credentials.
-
-The function returns a hashtable containing:
-- Credential object (AWSCredentials)
-- Expiration time
-- AccessKey
-- SecretKey
-- SessionToken
-
-It also logs each major action using the custom `Write-LocalLog` function.
-
-.PARAMETER RoleArn
-(Optional) An IAM Role ARN to assume via STS using `Use-STSRole`.
-
-.EXAMPLE
-$Creds = Get-AwsCred
-
-Automatically detects the environment and returns AWS credentials.
-
-.EXAMPLE
-$Creds = Get-AwsCred -RoleArn "arn:aws:iam::123456789012:role/MyAppRole"
-
-Retrieves base credentials and assumes the specified role via STS.
-
-.NOTES
-- Uses IMDSv2 for secure metadata access on EC2 instances.
-- The internal `Get-EC2InstanceMetadata` function handles token-based requests.
-- Requires AWS Tools for PowerShell.
-- Local credential file path is hardcoded to: `C:\Windows\System32\config\systemprofile\.aws\credentials`
-
-.AUTHOR
-Liamarjit @ Seva Cloud
-
-#>
 function Get-AwsCred {
+    <#
+        .SYNOPSIS
+            Retrieves AWS credentials from either EC2 instance metadata (with IMDSv2 support) or a local credentials file, with optional STS role assumption.
+    
+        .DESCRIPTION
+            This function determines whether it's running on an EC2 instance or on-premises. It retrieves AWS credentials accordingly:
+        
+            - On EC2: Fetches temporary IAM credentials from the instance metadata service (IMDSv2 supported).
+            - On-prem: Loads static credentials from a default shared credentials file.
+            - If a RoleArn is specified, it uses STS to assume that IAM role using the base credentials.
+        
+            The function returns a hashtable containing:
+                - Credential object (AWSCredentials)
+                - Expiration time
+                - AccessKey
+                - SecretKey
+                - SessionToken
+        
+            It also logs each major action using the custom `Write-LocalLog` function.
+        
+        .PARAMETER RoleArn
+            (Optional) An IAM Role ARN to assume via STS using `Use-STSRole`.
+        
+        .EXAMPLE
+            $Creds = Get-AwsCred
+        
+            Automatically detects the environment and returns AWS credentials.
+        
+        .EXAMPLE
+            $Creds = Get-AwsCred -RoleArn "arn:aws:iam::123456789012:role/MyAppRole"
+        
+            Retrieves base credentials and assumes the specified role via STS.
+        
+        .NOTES
+            - Uses IMDSv2 for secure metadata access on EC2 instances.
+            - The internal `Get-EC2InstanceMetadata` function handles token-based requests.
+            - Requires AWS Tools for PowerShell.
+            - Local credential file path is hardcoded to: `C:\Windows\System32\config\systemprofile\.aws\credentials`
+        
+        .AUTHOR
+            Author: Liamarjit Bhogal
+            Website: https://sevacloud.co.uk
+            Date: 2025
+            AWS PowerShell Module Required: AWSPowerShell.NetCore or AWS.Tools.*
+    
+    #>
     Param(
         [Parameter(Mandatory = $false)]
         [string]$RoleArn
