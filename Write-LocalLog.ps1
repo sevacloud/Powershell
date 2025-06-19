@@ -1,3 +1,4 @@
+function Write-LocalLog {
 <#
 .SYNOPSIS
 Writes a timestamped log message to a file and optionally to the console, with color-coding based on log level.
@@ -32,7 +33,6 @@ Write-LocalLog -LogMessage "Disk space low" -LogLevel "WARN" -WriteToConsole:$fa
 Author: Liamarjit @ Seva Cloud
 Use in automation, monitoring, or troubleshooting workflows.
 #>
-function Write-LocalLog {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
