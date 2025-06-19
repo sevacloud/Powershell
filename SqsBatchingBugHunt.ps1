@@ -1,13 +1,32 @@
 <# This is a bug hunt challenge.  
 The script batches host records and sends them to an SQS queue in groups of 10. It logs each attempt and catches errors gracefully. But there’s a hidden flaw that means some messages might never be sent.
 Think you can find it?
-Some variables and functions have been removed
+
+NOTE: Some variables and functions have been removed to keep the bug hunt focused
 
 Author: Liamarjit Bhogal, sevacloud.co.uk
 #>
+
 $RoleArn = ""
 $QueueUrl = ""
 $TtlHours = 2
+
+function Get-AwsCred {
+    Param(
+        [Parameter(Mandatory = $false)]
+        [string]$RoleArn
+    )
+    
+    # Main logic removed
+    
+    return @{
+        Expiration   = (Get-Date).AddMinutes(35)
+        Credential   = "$AwsCred #Amazon.Runtime.SessionAWSCredentials | Amazon.Runtime.BasicAWSCredentials"
+        AccessKey    = "$AwsCred.GetCredentials().AccessKey"
+        SecretKey    = "$AwsCred.GetCredentials().SecretKey"
+        SessionToken = "$AwsCred.GetCredentials().Token"
+    }
+}
 
 $UploadCounter = 0
 $BatchSize = 10
@@ -16,11 +35,13 @@ $CurrentBatch = @()
 $AwsCred = Get-AwsCred -RoleArn $RoleArn
 
 <# Assume $AllHostRecords is an array of 1000s of records with the following properties
-{
-    hostname = "server01.domain.com"
-    group    = "group01"
-}
-
+    $AllHostRecords = @(
+        @{
+            hostname = "server01.domain.com"
+            group    = "group01"
+        },
+        ...
+    )
 #>
 foreach ($HostRecord in $AllHostRecords) {
     $UploadCounter++
@@ -33,8 +54,8 @@ foreach ($HostRecord in $AllHostRecords) {
         $Hostname = $HostRecord.hostname.Split('.')[0].ToUpper()
 
         $MessageBody = @{
-            hostname = $Hostname
-            group    = $HostRecord.group
+            hostname   = $Hostname
+            group      = $HostRecord.group
             expiration = $ExpirationEpoch
             # Add any other attributes here
         } | ConvertTo-Json -Compress
