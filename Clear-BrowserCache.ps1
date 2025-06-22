@@ -32,6 +32,7 @@ function Clear-BrowserCache {
         
         .AUTHOR
         Originally coded by Liamarjit @ Seva Cloud (2014), modernized in 2025
+        Make A Donation: https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
         
     #>
     [CmdletBinding()]
