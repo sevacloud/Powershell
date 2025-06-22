@@ -34,6 +34,8 @@ function Add-TagToInstances {
 
 .NOTES
     Author: Liamarjit Bhogal
+    Website: https://sevacloud.co.uk
+    Make A Donation: https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
     Updated: 2025
     Supports AWSPowerShell.NetCore / AWS.Tools modules.
 #>
