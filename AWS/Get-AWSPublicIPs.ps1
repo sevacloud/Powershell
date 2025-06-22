@@ -31,6 +31,7 @@ function Get-AWSPublicIPs {
 .NOTES
     Author: Liamarjit Bhogal
     Website: https://sevacloud.co.uk
+    Make A Donation: https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
     Date: 2025
     Tags: AWS, Security, Public IPs, EC2, ELB, VPC, Audit
 #>
