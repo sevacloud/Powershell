@@ -31,6 +31,7 @@ Write-LocalLog -LogMessage "Disk space low" -LogLevel "WARN" -WriteToConsole:$fa
 
 .NOTES
 Author: Liamarjit @ Seva Cloud
+Make A Donation: https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
 Use in automation, monitoring, or troubleshooting workflows.
 #>
     [CmdletBinding()]
