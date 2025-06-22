@@ -5,6 +5,7 @@ Think you can find it?
 NOTE: Some variables and functions have been removed to keep the bug hunt focused
 
 Author: Liamarjit Bhogal, sevacloud.co.uk
+Make A Donation: https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
 #>
 
 $RoleArn = ""
