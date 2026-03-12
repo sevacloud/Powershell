@@ -31,8 +31,10 @@ function Clear-BrowserCache {
         - Safe to use as part of login scripts, cleanup routines, or troubleshooting toolkits.
         
         .AUTHOR
-        Originally coded by Liamarjit @ Seva Cloud (2014), modernized in 2025
-        Make A Donation: https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
+            Original Author : Liamarjit Bhogal (© Seva Cloud 2026)
+            Website         : https://sevacloud.co.uk
+            Disclaimer      : Provided as-is with no warranty. Test before use in production.
+            Donate          : https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
         
     #>
     [CmdletBinding()]
