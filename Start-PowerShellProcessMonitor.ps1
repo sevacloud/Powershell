@@ -27,7 +27,7 @@ Start-PowerShellProcessMonitor -OutputPath 'D:\Logs\Monitor.csv'
 Writes logs to a custom path.
 
 .NOTES
-Author: Liamarjit Bhogal
+Author: Liamarjit Bhogal (© Seva Cloud 2026)
 Website: https://sevacloud.co.uk
 Make A Donation: https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
 Date: 2025
