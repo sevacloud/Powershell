@@ -197,7 +197,6 @@ function Get-WURebootPending
     .DESCRIPTION
         Checks CBS, Windows Update, SCCM, and PendingFileRenameOperations.
         Returns $true if any reboot is pending.
-        Adapted from: https://w.amazon.com/bin/view/AEP/Customers#HHostisstillshowingmissingpatchesafteronboarding
     #>
 
     $RebootPending = @{
@@ -651,7 +650,7 @@ $TotalStopWatch.Stop()
 $TotalMinutes = [math]::Round($TotalStopWatch.Elapsed.TotalMinutes)
 if ($TotalMinutes -gt $TimeoutMinutes)
 {
-    Write-LocalLog "Wall-clock time ($TotalMinutes min) exceeded configured timeout ($TimeoutMinutes min). Review: https://w.amazon.com/bin/view/GSO-VI/Resources/Windows_Patching#HTroubleshooting" -LogLevel WARN
+    Write-LocalLog "Wall-clock time ($TotalMinutes min) exceeded configured timeout ($TimeoutMinutes min)." -LogLevel WARN
     $ProcessStatus = 'TimeoutReached'
 }
 
