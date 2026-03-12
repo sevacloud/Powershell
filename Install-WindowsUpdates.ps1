@@ -11,7 +11,7 @@
     Key behaviours:
       - Tracks local state in a JSON file to avoid unnecessary DynamoDB reads on resumption.
       - Reboot triggered within a specific maintenance window only
-      - Staggers patching by host type (Non-Prod / Even / Odd / Failover) relative to Patch Tuesday.
+      - Staggers patching with an offset relative to Patch Tuesday if needed.
 
   .PARAMETER TimeoutMinutes
     Maximum time in minutes to wait for download or install jobs before timing out.
