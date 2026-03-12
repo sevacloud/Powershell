@@ -42,7 +42,6 @@
                       AWS.Tools.Common / DynamoDBv2 / SecurityToken / SSM 4.1.319 (optional)
     Disclaimer      : This script is provided as-is, with no warranty or guarantee of fitness for purpose. Please test before implementing in a production
                       environment. I am not liable for any damage caused by your execution of this code.
-    Donate          : https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
 #>
 
 [CmdletBinding()]
@@ -275,6 +274,30 @@ function Get-LastBootInfo
     return @{ LastBootTime = $LastBoot; BootTimeDelta = $BootDelta }
 }
 
+function Invoke-PatchReboot
+{
+    <#
+    .SYNOPSIS
+        Initiates a system reboot following a successful patch installation.
+        Only called when within the defined maintenance window.
+    #>
+    Param(
+        [Parameter(Mandatory = $false)]
+        [int]$DelaySeconds = 0
+    )
+
+    if ($DelaySeconds -gt 0)
+    {
+        Write-LocalLog "Rebooting in $DelaySeconds second(s) — patch installation complete."
+        shutdown.exe /r /t $DelaySeconds /c "Windows Update patching complete"
+    }
+    else
+    {
+        Write-LocalLog "Rebooting now — patch installation complete."
+        Restart-Computer -Force
+    }
+}
+
 # ==============================================================================
 # CACHE HELPERS
 # ==============================================================================
@@ -374,7 +397,7 @@ $WithinWindow    = Get-ExecutionWithinMaintenanceWindow @MaintenanceWindowParams
 if ($RebootPending -and ($LastBootInfo.BootTimeDelta.TotalHours -lt -1) -and $WithinWindow)
 {
     Write-LocalLog "Pre-update reboot required — rebooting now."
-    exit 3010
+    Invoke-PatchReboot -DelaySeconds 30
 }
 
 #endregion CheckReboot
@@ -647,8 +670,8 @@ Write-LocalLog "=== WindowsUpdate complete | Status: $ProcessStatus ==="
 if ($ExitRebootCode -eq 3010)
 {
     # See: https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html
-    Write-LocalLog "Exiting with code 3010 to signal reboot."
-    exit 3010
+    Write-LocalLog "Exiting with reboot.  ExitCode 3010"
+    Invoke-PatchReboot -DelaySeconds 30
 }
 
 #endregion RebootValidation
