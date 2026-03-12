@@ -41,6 +41,7 @@
     Requires        : PSWindowsUpdate 2.2.1.3 (mandatory)
     Disclaimer      : This script is provided as-is, with no warranty or guarantee of fitness for purpose. Please test before implementing in a production
                       environment. I am not liable for any damage caused by your execution of this code.
+    Make A Donation : https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
 #>
 
 [CmdletBinding()]
