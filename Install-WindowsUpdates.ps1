@@ -37,7 +37,7 @@
 
   .NOTES
     Original Author : Liamarjit Bhogal (© Seva Cloud 2026)
-    Refactored      : Standalone execution, optional DDB reporting, -Param style inputs
+    Website         : https://sevacloud.co.uk
     Requires        : PSWindowsUpdate 2.2.1.3 (mandatory)
     Disclaimer      : This script is provided as-is, with no warranty or guarantee of fitness for purpose. Please test before implementing in a production
                       environment. I am not liable for any damage caused by your execution of this code.
