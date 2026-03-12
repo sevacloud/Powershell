@@ -42,6 +42,7 @@
                       AWS.Tools.Common / DynamoDBv2 / SecurityToken / SSM 4.1.319 (optional)
     Disclaimer      : This script is provided as-is, with no warranty or guarantee of fitness for purpose. Please test before implementing in a production
                       environment. I am not liable for any damage caused by your execution of this code.
+    Donate          : https://www.paypal.com/donate/?hosted_button_id=6EB8U2A94PX5Q
 #>
 
 [CmdletBinding()]
