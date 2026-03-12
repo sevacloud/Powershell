@@ -39,7 +39,6 @@
     Original Author : Liamarjit Bhogal (© Seva Cloud 2026)
     Refactored      : Standalone execution, optional DDB reporting, -Param style inputs
     Requires        : PSWindowsUpdate 2.2.1.3 (mandatory)
-                      AWS.Tools.Common / DynamoDBv2 / SecurityToken / SSM 4.1.319 (optional)
     Disclaimer      : This script is provided as-is, with no warranty or guarantee of fitness for purpose. Please test before implementing in a production
                       environment. I am not liable for any damage caused by your execution of this code.
 #>
@@ -415,12 +414,6 @@ Write-LocalLog "Importing required modules."
 
 # PSWindowsUpdate is mandatory — script cannot patch without it
 Import-ModuleVersion -ModuleName 'PSWindowsUpdate'              -ModuleVersion '2.2.1.3'
-
-# AWS.Tools modules are optional — only needed for DDB/SSM reporting and repair triggering
-Import-ModuleVersion -ModuleName 'AWS.Tools.Common'             -ModuleVersion '4.1.319' -Throw $false
-Import-ModuleVersion -ModuleName 'AWS.Tools.SecurityToken'      -ModuleVersion '4.1.319' -Throw $false
-Import-ModuleVersion -ModuleName 'AWS.Tools.DynamoDBv2'         -ModuleVersion '4.1.319' -Throw $false
-Import-ModuleVersion -ModuleName 'AWS.Tools.SimpleSystemsManagement' -ModuleVersion '4.1.319' -Throw $false
 
 #endregion ImportModules
 
