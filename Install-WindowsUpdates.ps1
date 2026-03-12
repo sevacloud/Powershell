@@ -397,6 +397,7 @@ if ($RebootPending -and ($LastBootInfo.BootTimeDelta.TotalHours -lt -1) -and $Wi
 {
     Write-LocalLog "Pre-update reboot required — rebooting now."
     Invoke-PatchReboot -DelaySeconds 30
+    exit 0 # Explicit halt prevents further script execution
 }
 
 #endregion CheckReboot
@@ -449,7 +450,8 @@ Write-LocalLog "Patch Tuesday: $PatchTuesday | Patching day for this host: $Patc
 #region ProcessComplete
 
 # Read local caches if they exist
-$CacheContent = if (Test-Path $script:LocalCacheFile)  { Get-Content $script:LocalCacheFile  | ConvertFrom-Json } else { $null }
+$CacheContent              = if (Test-Path $script:LocalCacheFile)  { Get-Content $script:LocalCacheFile  | ConvertFrom-Json } else { $null }
+$FailedUpdatesCacheContent = if (Test-Path $FailedUpdatesCachePath) { Get-Content $FailedUpdatesCachePath | ConvertFrom-Json } else { $null }
 
 $AttributeUpdates = @{
     patch_tuesday_delta = ($PatchTuesday - $Today).Days
@@ -576,7 +578,7 @@ if ($InstallJob.State -like '*failed*' -or ($InstallOutput.Result -like 'Failed'
     {
         Write-LocalLog "Failed cumulative updates: $($FailedCumulativeUpdates | Out-String)" -LogLevel ERROR
 
-        $CurrentRepairCycles  = if ($FailedUpdatesCacheContent.RepairCycles)       { [int]$FailedUpdatesCacheContent.RepairCycles }       else { 0 }
+        $CurrentRepairCycles  = if ($FailedUpdatesCacheContent.RepairCycles) { [int]$FailedUpdatesCacheContent.RepairCycles } else { 0 }
         $CurrentRepairCycles++
 
         # Persist failed KB list before sending command (the repair document reads from this file)
@@ -662,7 +664,6 @@ Write-LocalLog "=== WindowsUpdate complete | Status: $ProcessStatus ==="
 # Issue reboot signal last — see note above regarding boot-loop guard
 if ($ExitRebootCode -eq 3010)
 {
-    # See: https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html
     Write-LocalLog "Exiting with reboot.  ExitCode 3010"
     Invoke-PatchReboot -DelaySeconds 30
 }
