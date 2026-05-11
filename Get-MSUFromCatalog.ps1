@@ -62,7 +62,7 @@ function Get-MSUFromCatalog
 
     # Search the Microsoft Update Catalog
     $SearchUrl = "https://www.catalog.update.microsoft.com/Search.aspx?q=KB$KBNumber"
-    $Response = Invoke-WebRequest -Uri $SearchUrl -UseBasicParsing -ErrorAction Stop
+    $Response = Invoke-WebRequest -Uri $SearchUrl -UseBasicParsing -ErrorAction Stop -TimeoutSec 120
 
     # The catalog renders update IDs in input elements and table rows.
     # Update IDs appear in the onclick handlers as: updateIDs with GUID patterns
