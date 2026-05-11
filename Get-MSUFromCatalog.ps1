@@ -151,7 +151,7 @@ function Get-MSUFromCatalog
     # Get the download URL from the catalog download dialog
     $PostBody = @{ updateIDs = "[{""uidInfo"":""$SelectedId"",""updateID"":""$SelectedId""}]" }
     $DownloadPage = Invoke-WebRequest -Uri 'https://www.catalog.update.microsoft.com/DownloadDialog.aspx' `
-        -Method POST -Body $PostBody -UseBasicParsing -ErrorAction Stop
+        -Method POST -Body $PostBody -UseBasicParsing -ErrorAction Stop -TimeoutSec 120
 
     $DlContent = $DownloadPage.Content
 
@@ -182,7 +182,7 @@ function Get-MSUFromCatalog
     $OutPath = Join-Path -Path $Destination -ChildPath $FileName
 
     Write-Output "      Downloading from: $($DownloadUrl.Substring(0, [Math]::Min(80, $DownloadUrl.Length)))..."
-    Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutPath -UseBasicParsing -ErrorAction Stop
+    Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutPath -UseBasicParsing -ErrorAction Stop -TimeoutSec 900
 
     if (-not (Test-Path $OutPath) -or (Get-Item $OutPath).Length -eq 0)
     {
