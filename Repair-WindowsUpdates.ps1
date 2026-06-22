@@ -538,8 +538,11 @@ function Reregister-LatestPackageVersions
         [string[]]$PackageNames
     )
 
+    Write-LocalLog "Re-registering latest versions of problematic packages"
+    
     foreach ($PackageName in $PackageNames)
     {
+        Write-LocalLog "Working on $PackageName"
         $Prefix      = $PackageName.Split('~')[0]
         $AllVersions = Get-ChildItem -Path 'C:\Windows\Servicing\Packages' `
                                      -Filter "$Prefix*.mum" `
@@ -551,8 +554,16 @@ function Reregister-LatestPackageVersions
             continue
         }
 
-        # Sort descending by name so the highest version number comes first
-        $Latest = $AllVersions | Sort-Object Name -Descending | Select-Object -First 1
+        Write-LocalLog "Found superseded package versions for $PackageName"
+
+        # Sort descending by minor version so the highest version number comes first
+        $Latest = $AllVersions | Sort-Object {
+            if ($_.Name -match '(\d+\.\d+\.\d+\.\d+)') {
+                [version]$Matches[1]
+            } else {
+                [version]'0.0.0.0'
+            }
+        } -Descending | Select-Object -First 1
 
         Write-LocalLog "Re-registering latest version: $($Latest.Name)"
         try
